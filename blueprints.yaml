@@ -1,0 +1,76 @@
+name: Automagic Images
+version: 1.0
+description: Generate responsive versions of images as they are uploaded, and add sizes directives per class.
+icon: picture-o
+author:
+  name: Netzhexe
+  email: ak@netzhexe.de
+homepage: https://github.com/skinofthesoul/grav-plugin-automagic-images
+keywords: images, responsive, srcset
+bugs: https://github.com/skinofthesoul/grav-plugin-automagic-images/issues
+docs: https://github.com/skinofthesoul/grav-plugin-automagic-images/blob/master/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
+      highlight: 1
+      default: 0
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+    adapter:
+      type: select
+      label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_ADAPTER
+      help: PLUGIN_AUTOMAGIC_IMAGES.HELP_ADAPTER
+      default: imagick
+      options:
+        imagick: Imagick
+        gd: GD
+    remove_original:
+      type: toggle
+      label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_REMOVE_ORIGINAL
+      help: PLUGIN_AUTOMAGIC_IMAGES.HELP_REMOVE_ORIGINAL
+      highlight: 0
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    sizes:
+      type: list
+      label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_SIZES
+      btnLabel: PLUGIN_AUTOMAGIC_IMAGES.BTNLABEL_ADD_SIZE
+
+      fields:
+        .width:
+          type: number
+          label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_WIDTH
+          placeholder: 1280
+          min: 1
+        .quality:
+          type: number
+          label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_QUALITY
+          placeholder: 82
+          min: 0
+          max: 100
+          default: 82
+
+    sizesattr:
+      type: list
+      label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_SIZESATTR
+      btnLabel: PLUGIN_AUTOMAGIC_IMAGES.BTNLABEL_SIZESATTR
+
+      fields:
+        .class:
+          type: text
+          label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_CLASS
+        .directive:
+          type: text
+          label: PLUGIN_AUTOMAGIC_IMAGES.LABEL_DIRECTIVE

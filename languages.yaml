@@ -1,0 +1,28 @@
+en:
+  PLUGIN_AUTOMAGIC_IMAGES:
+    LABEL_ADAPTER: Image editing module
+    HELP_ADAPTER: Imagick will produce better results, but isn't available in all environments.
+    LABEL_REMOVE_ORIGINAL: Remove original after resizing
+    HELP_REMOVE_ORIGINAL: By default, the original image will be preserved as the largest variant. Enable this to remove it instead.
+    LABEL_SIZES: Image sizes
+    BTNLABEL_ADD_SIZE: Add image size
+    LABEL_WIDTH: Width
+    LABEL_QUALITY: JPEG quality
+    LABEL_SIZESATTR: Sizes directive per CSS class
+    BTNLABEL_SIZESATTR: Add sizes directive
+    LABEL_CLASS: CSS class
+    LABEL_DIRECTIVE: sizes attribute
+de:
+  PLUGIN_AUTOMAGIC_IMAGES:
+    LABEL_ADAPTER: Bildbearbeitungsmodul
+    HELP_ADAPTER: Mit Imagick sind die Ergebnisse besser, aber es kann sein, dass es nicht zur Verfüung steht.
+    LABEL_REMOVE_ORIGINAL: Original nach Bearbeitung löschen
+    HELP_REMOVE_ORIGINAL: Standardmäßig wird das Originalbild als größte Bildvariante behalten. Wenn diese Option gesetzt ist, wird es stattdessen gelöscht.
+    LABEL_SIZES: Bildgrößen
+    BTNLABEL_ADD_SIZE: Bildgröße hinzufügen
+    LABEL_WIDTH: Breite
+    LABEL_QUALITY: JPEG-Qualität
+    LABEL_SIZESATTR: Die sizes-Angaben pro CSS-Klasse
+    BTNLABEL_SIZESATTR: sizes-Angabe hinzufügen
+    LABEL_CLASS: CSS-Klasse
+    LABEL_DIRECTIVE: sizes-Angabe
