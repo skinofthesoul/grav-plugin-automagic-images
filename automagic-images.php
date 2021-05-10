@@ -164,7 +164,6 @@ class AutomagicImagesPlugin extends Plugin
                     rename($source_path, "{$info['dirname']}/{$basename}@{$original_index}x.{$ext}");
                 }
 
-                // var_dump($basename); var_dump($ext); exit;
                 $fixed_source = str_replace($info['filename'], $basename, $source_path);
                 $fixed_source = str_replace($info['extension'], $ext, $fixed_source);
                 rename("{$info['dirname']}/{$basename}@1x.{$ext}", $fixed_source);

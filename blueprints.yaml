@@ -1,12 +1,12 @@
 name: Automagic Images
 version: 1.0
-description: Generate responsive versions of images as they are uploaded, and add sizes directives per class.
+description: Generate responsive versions of images as they are uploaded, and add sizes directives per CSS class.
 icon: picture-o
 author:
   name: Netzhexe
   email: ak@netzhexe.de
 homepage: https://github.com/skinofthesoul/grav-plugin-automagic-images
-keywords: images, responsive, srcset
+keywords: images, responsive, srcset, sizes
 bugs: https://github.com/skinofthesoul/grav-plugin-automagic-images/issues
 docs: https://github.com/skinofthesoul/grav-plugin-automagic-images/blob/master/README.md
 license: MIT
