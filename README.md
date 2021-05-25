@@ -90,4 +90,4 @@ If you use the Admin Plugin, you can install the plugin directly by browsing the
 @olevik – copying and adapting his code from Image Srcset to add the `sizes` per CSS class was a lot easier than writing it all by myself, and also I wouldn’t have learned about the excellent [PHP Html Parser](https://github.com/paquettg/php-html-parser) otherwise.
 
 ## Plans for the future
-Being able to regenerate ALL images with a click would be incredibly nice, but I really don’t know when I might get around to that. Co-maintainers and -developers are welcome!
+Being able to regenerate ALL images with a click would be incredibly nice, but I really don’t know when I might get around to that. Co-maintainers and -developers are welcome! Also adding support for formats other than jpg and png, that seems easier to do and will be next.
