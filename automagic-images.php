@@ -37,7 +37,7 @@ class AutomagicImagesPlugin extends Plugin
     {
         return [
             'onAdminSave'       => ['onAdminSave', 0],
-            'onOutputGenerated' => ['onOutputGenerated', 0]
+            'onPageContentProcessed' => ['onPageContentProcessed', 0]
         ];
     }
 
@@ -185,18 +185,18 @@ class AutomagicImagesPlugin extends Plugin
      *
      * @return void
      */
-    public function onOutputGenerated()
+    public function onPageContentProcessed(Event $event)
     {
         if ($this->isAdmin()) {
             return;
         }
         $config = (array) $this->config->get('plugins.automagic-images');
-        $page = $this->grav['page'];
+        $page = $event['page'];
         $config = $this->mergeConfig($page); 
         if ($config['enabled']) {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
-            $dom->loadStr($this->grav->output,
+            $dom->loadStr($page->content(),
                 (new Options())->setCleanupInput(false)
                     );
             $images = $dom->find('img');
@@ -221,7 +221,7 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
-            $this->grav->output = $dom->outerHtml;
+            $page->content($dom->outerHtml);
         }
     }
 }
