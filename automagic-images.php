@@ -192,7 +192,7 @@ class AutomagicImagesPlugin extends Plugin
         }
         $config = (array) $this->config->get('plugins.automagic-images');
         $page = $event['page'];
-        $config = $this->mergeConfig($page); 
+        $config = $this->mergeConfig($page);
         if ($config['enabled']) {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
@@ -221,7 +221,8 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
-            $page->content($dom->outerHtml);
+            //dump($dom->outerHtml); exit;
+            $page->setRawContent($dom->outerHtml);
         }
     }
 }

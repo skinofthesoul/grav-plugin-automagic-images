@@ -1,5 +1,5 @@
 name: Automagic Images
-version: 1.0.1
+version: 1.0.2
 description: Generate responsive versions of images as they are uploaded, and add sizes directives per CSS class.
 icon: picture-o
 author:
