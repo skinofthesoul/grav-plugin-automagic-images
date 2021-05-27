@@ -37,7 +37,7 @@ class AutomagicImagesPlugin extends Plugin
     {
         return [
             'onAdminSave'       => ['onAdminSave', 0],
-            'onPageContentProcessed' => ['onPageContentProcessed', 0]
+            'onPageContentProcessed' => ['onPageContentProcessed', 10]
         ];
     }
 
@@ -192,6 +192,7 @@ class AutomagicImagesPlugin extends Plugin
         }
         $config = (array) $this->config->get('plugins.automagic-images');
         $page = $event['page'];
+        // dump($page);
         $config = $this->mergeConfig($page);
         if ($config['enabled']) {
             include __DIR__ . '/vendor/autoload.php';
@@ -204,6 +205,7 @@ class AutomagicImagesPlugin extends Plugin
             foreach ($config['sizesattr'] as $array) {
                 $arrClasses[$array['class']] = $array['directive'];
             }
+            // dump($page->content());
             foreach ($images as $image) {
                 $sizesattr = "";
                 $classes = explode(" ", $image->getAttribute('class'));
@@ -212,6 +214,7 @@ class AutomagicImagesPlugin extends Plugin
                         $sizesattr = $arrClasses[$class];
                     }
                 }
+                // dump($sizesattr); exit;
                 if ($sizesattr == "") {
                     if (array_key_exists('default', $arrClasses)) {
                         $sizesattr = $arrClasses['default'];
@@ -221,8 +224,8 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
-            //dump($dom->outerHtml); exit;
             $page->setRawContent($dom->outerHtml);
+            dump($this->grav); exit;
         }
     }
 }
