@@ -1,3 +1,9 @@
+# v1.0.3
+##  10-06-2021
+
+1. [](#improved)
+    * reverted the output changes because they didn't work for twig-generated content
+
 # v1.0.2
 ##  27-05-2021
 

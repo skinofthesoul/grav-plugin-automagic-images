@@ -37,7 +37,7 @@ class AutomagicImagesPlugin extends Plugin
     {
         return [
             'onAdminSave'       => ['onAdminSave', 0],
-            'onPageContentProcessed' => ['onPageContentProcessed', 10]
+            'onOutputGenerated' => ['onOutputGenerated', 0]
         ];
     }
 
@@ -180,24 +180,24 @@ class AutomagicImagesPlugin extends Plugin
     }
 
     /**
-     * Iterates over images in page content and rewrites paths
-     * Shamelessly copied from OleVik's Image Srcset plugin (and adapted)!
+     * Iterates over images in page content that was generated via twig and adds 
+     * sizes attribute (not cacheable)
      *
      * @return void
      */
-    public function onPageContentProcessed(Event $event)
+    public function onOutputGenerated()
     {
         if ($this->isAdmin()) {
             return;
         }
         $config = (array) $this->config->get('plugins.automagic-images');
-        $page = $event['page'];
-        // dump($page);
-        $config = $this->mergeConfig($page);
+        $page = $this->grav['page'];
+        // dump($this->grav->output); exit;
+        $config = $this->mergeConfig($page); 
         if ($config['enabled']) {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
-            $dom->loadStr($page->content(),
+            $dom->loadStr($this->grav->output,
                 (new Options())->setCleanupInput(false)
                     );
             $images = $dom->find('img');
@@ -205,27 +205,30 @@ class AutomagicImagesPlugin extends Plugin
             foreach ($config['sizesattr'] as $array) {
                 $arrClasses[$array['class']] = $array['directive'];
             }
-            // dump($page->content());
             foreach ($images as $image) {
-                $sizesattr = "";
-                $classes = explode(" ", $image->getAttribute('class'));
-                foreach ($classes as $class) {
-                    if (array_key_exists($class, $arrClasses)) {
-                        $sizesattr = $arrClasses[$class];
+                // dump($image); exit;
+                if ($image->getAttribute('sizes') != "100vw") {
+                    echo "sizes already set: ".$image->getAttribute('sizes');
+                } else {
+                    // dump($image); exit;
+                    $sizesattr = "";
+                    $classes = explode(" ", $image->getAttribute('class'));
+                    foreach ($classes as $class) {
+                        if (array_key_exists($class, $arrClasses)) {
+                            $sizesattr = $arrClasses[$class];
+                        }
                     }
-                }
-                // dump($sizesattr); exit;
-                if ($sizesattr == "") {
-                    if (array_key_exists('default', $arrClasses)) {
-                        $sizesattr = $arrClasses['default'];
+                    if ($sizesattr == "") {
+                        if (array_key_exists('default', $arrClasses)) {
+                            $sizesattr = $arrClasses['default'];
+                        }
                     }
-                }
-                if ($sizesattr != "") {
-                    $image->setAttribute('sizes', $sizesattr);
+                    if ($sizesattr != "") {
+                        $image->setAttribute('sizes', $sizesattr);
+                    }
                 }
             }
-            $page->setRawContent($dom->outerHtml);
-            dump($this->grav); exit;
+            $this->grav->output = $dom->outerHtml;
         }
     }
 }
