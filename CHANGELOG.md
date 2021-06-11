@@ -1,3 +1,9 @@
+# v1.0.4
+##  11-06-2021
+
+1. [](#bugfix)
+    * removed debugging code
+
 # v1.0.3
 ##  10-06-2021
 

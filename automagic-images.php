@@ -206,26 +206,20 @@ class AutomagicImagesPlugin extends Plugin
                 $arrClasses[$array['class']] = $array['directive'];
             }
             foreach ($images as $image) {
-                // dump($image); exit;
-                if ($image->getAttribute('sizes') != "100vw") {
-                    echo "sizes already set: ".$image->getAttribute('sizes');
-                } else {
-                    // dump($image); exit;
-                    $sizesattr = "";
-                    $classes = explode(" ", $image->getAttribute('class'));
-                    foreach ($classes as $class) {
-                        if (array_key_exists($class, $arrClasses)) {
-                            $sizesattr = $arrClasses[$class];
-                        }
+                $sizesattr = "";
+                $classes = explode(" ", $image->getAttribute('class'));
+                foreach ($classes as $class) {
+                    if (array_key_exists($class, $arrClasses)) {
+                        $sizesattr = $arrClasses[$class];
                     }
-                    if ($sizesattr == "") {
-                        if (array_key_exists('default', $arrClasses)) {
-                            $sizesattr = $arrClasses['default'];
-                        }
+                }
+                if ($sizesattr == "") {
+                    if (array_key_exists('default', $arrClasses)) {
+                        $sizesattr = $arrClasses['default'];
                     }
-                    if ($sizesattr != "") {
-                        $image->setAttribute('sizes', $sizesattr);
-                    }
+                }
+                if ($sizesattr != "") {
+                    $image->setAttribute('sizes', $sizesattr);
                 }
             }
             $this->grav->output = $dom->outerHtml;
