@@ -197,9 +197,14 @@ class AutomagicImagesPlugin extends Plugin
         if ($config['enabled'] && $page->templateFormat() === 'html') {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
+            $dom->setOptions(
+                (new Options())
+                    ->setStrict(true)
+            );
             $dom->loadStr($this->grav->output,
-                (new Options())->setCleanupInput(false)
+                (new Options())->setPreserveLineBreaks(true)
                     );
+            // dump($dom); exit;
             $images = $dom->find('img');
             $arrClasses = [];
             foreach ($config['sizesattr'] as $array) {
@@ -223,7 +228,7 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
-            // dump($dom); exit;
+            // dump($dom->outerHtml); exit;
             $this->grav->output = $dom->outerHtml;
         }
     }
