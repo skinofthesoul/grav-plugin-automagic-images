@@ -194,7 +194,7 @@ class AutomagicImagesPlugin extends Plugin
         $page = $this->grav['page'];
         // dump($this->grav->output); exit;
         $config = $this->mergeConfig($page); 
-        if ($config['enabled']) {
+        if ($config['enabled'] && $page->templateFormat() === 'html') {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
             $dom->loadStr($this->grav->output,
