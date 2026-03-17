@@ -205,6 +205,7 @@ class AutomagicImagesPlugin extends Plugin
             foreach ($config['sizesattr'] as $array) {
                 $arrClasses[$array['class']] = $array['directive'];
             }
+            // dump($images); exit;
             foreach ($images as $image) {
                 $sizesattr = "";
                 $classes = explode(" ", $image->getAttribute('class'));
@@ -222,6 +223,7 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
+            // dump($dom); exit;
             $this->grav->output = $dom->outerHtml;
         }
     }
