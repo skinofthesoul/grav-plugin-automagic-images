@@ -193,36 +193,19 @@ class AutomagicImagesPlugin extends Plugin
         }
         $config = (array) $this->config->get('plugins.automagic-images');
         $page = $this->grav['page'];
-        // dump($this->grav->output); exit;
         $config = $this->mergeConfig($page); 
         if ($config['enabled'] && $page->templateFormat() === 'html') {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
             $opt = new Options();
+            // clashes with no clean up for some reason, so the doctype needs to be added in at the end
             $opt->setPreserveLineBreaks(true);
-            // $opt->setCleanupInput(false);
-            $dom->setOptions($opt
-                // (new Options())
-                    // ->setStrict(true)
-                    // $opt->setPreserveLineBreaks(true)
-                    // ->setCleanupInput(false)
-            );
-            // $dom->loadStr($this->grav->output,
-            //     (new Options())->setPreserveLineBreaks(true)
-            //     // (new Options())->setCleanupInput(false)
-            //         );
-            // $dom->loadStr($this->grav->output,
-            //     // (new Options())->setPreserveLineBreaks(true)
-            //     (new Options())->setCleanupInput(false)
-            //         );
-            // dump($dom); exit;
             $dom->loadStr($this->grav->output, $opt);
             $images = $dom->find('img');
             $arrClasses = [];
             foreach ($config['sizesattr'] as $array) {
                 $arrClasses[$array['class']] = $array['directive'];
             }
-            // dump($images); exit;
             foreach ($images as $image) {
                 $sizesattr = "";
                 $classes = explode(" ", $image->getAttribute('class'));
@@ -240,7 +223,6 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
-            // dump($dom->outerHtml); exit;
             $this->grav->output = '<!DOCTYPE html>'.$dom->outerHtml;
         }
     }

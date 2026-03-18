@@ -1,3 +1,12 @@
+# v1.1
+##  18-03-2026
+
+1. [](#bugfix)
+    * line breaks are now not removed from output (this interfered with code blocks)
+2. [](#improved)
+    * removed “resized image 0 times” message
+
+
 # v1.0.5
 ##  14-06-2021
 
