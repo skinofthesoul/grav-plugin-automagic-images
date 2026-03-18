@@ -125,6 +125,7 @@ class AutomagicImagesPlugin extends Plugin
             $srcset = $medium->srcset(false);
 
             if ($srcset != '') {
+                dump($srcset);
                 continue;
             }
 
@@ -197,14 +198,25 @@ class AutomagicImagesPlugin extends Plugin
         if ($config['enabled'] && $page->templateFormat() === 'html') {
             include __DIR__ . '/vendor/autoload.php';
             $dom = new Dom;
-            $dom->setOptions(
-                (new Options())
-                    ->setStrict(true)
+            $opt = new Options();
+            $opt->setPreserveLineBreaks(true);
+            // $opt->setCleanupInput(false);
+            $dom->setOptions($opt
+                // (new Options())
+                    // ->setStrict(true)
+                    // $opt->setPreserveLineBreaks(true)
+                    // ->setCleanupInput(false)
             );
-            $dom->loadStr($this->grav->output,
-                (new Options())->setPreserveLineBreaks(true)
-                    );
+            // $dom->loadStr($this->grav->output,
+            //     (new Options())->setPreserveLineBreaks(true)
+            //     // (new Options())->setCleanupInput(false)
+            //         );
+            // $dom->loadStr($this->grav->output,
+            //     // (new Options())->setPreserveLineBreaks(true)
+            //     (new Options())->setCleanupInput(false)
+            //         );
             // dump($dom); exit;
+            $dom->loadStr($this->grav->output, $opt);
             $images = $dom->find('img');
             $arrClasses = [];
             foreach ($config['sizesattr'] as $array) {
@@ -229,7 +241,7 @@ class AutomagicImagesPlugin extends Plugin
                 }
             }
             // dump($dom->outerHtml); exit;
-            $this->grav->output = $dom->outerHtml;
+            $this->grav->output = '<!DOCTYPE html>'.$dom->outerHtml;
         }
     }
 }
