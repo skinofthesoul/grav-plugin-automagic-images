@@ -1,3 +1,9 @@
+# v1.1.1
+##  01-04-2026
+1. [](#bugfix)
+    * version number was missing from blueprints.yaml, so no automatic updates
+
+
 # v1.1
 ##  18-03-2026
 
