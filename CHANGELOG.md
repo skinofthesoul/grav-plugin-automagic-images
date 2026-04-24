@@ -1,3 +1,8 @@
+# v1.2
+##  24-04-2026
+1. [](#bugfix)
+    * the last version turned out to purge javascript tags, new version of HTML parsing implemented
+
 # v1.1.1
 ##  01-04-2026
 1. [](#bugfix)

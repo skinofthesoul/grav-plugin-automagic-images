@@ -9,7 +9,7 @@ use Grav\Common\Data;
 use Grav\Common\Grav;
 use PHPHtmlParser\Dom;
 use PHPHtmlParser\Options;
-
+use DOMDocument;
 
 require_once 'adapters/imagick.php';
 require_once 'adapters/gd.php';
@@ -125,7 +125,7 @@ class AutomagicImagesPlugin extends Plugin
             $srcset = $medium->srcset(false);
 
             if ($srcset != '') {
-                dump($srcset);
+                // dump($srcset);
                 continue;
             }
 
@@ -196,12 +196,12 @@ class AutomagicImagesPlugin extends Plugin
         $config = $this->mergeConfig($page); 
         if ($config['enabled'] && $page->templateFormat() === 'html') {
             include __DIR__ . '/vendor/autoload.php';
-            $dom = new Dom;
-            $opt = new Options();
-            // clashes with no clean up for some reason, so the doctype needs to be added in at the end
-            $opt->setPreserveLineBreaks(true);
-            $dom->loadStr($this->grav->output, $opt);
-            $images = $dom->find('img');
+            $dom = new DOMDocument();
+            libxml_use_internal_errors(true);
+            $rawOutput = $this->grav->output;
+            $dom->loadHTML($rawOutput);
+            $images = $dom->getElementsByTagName('img');
+            
             $arrClasses = [];
             foreach ($config['sizesattr'] as $array) {
                 $arrClasses[$array['class']] = $array['directive'];
@@ -223,7 +223,8 @@ class AutomagicImagesPlugin extends Plugin
                     $image->setAttribute('sizes', $sizesattr);
                 }
             }
-            $this->grav->output = '<!DOCTYPE html>'.$dom->outerHtml;
+            
+            $this->grav->output = $dom->saveHTML();
         }
     }
 }

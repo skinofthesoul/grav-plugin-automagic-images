@@ -1,5 +1,7 @@
 # [Grav](http://getgrav.org) Automagic Images Plugin
 
+**NOTE: the currently implemented HTML parsing may yet turn out to have unforeseen consequences and clash with your specific page output. Please let me know in the plugin’s issue queue!**
+
 This plugin started out as a fork from the most excellent [Resize Images](https://github.com/fredrikekelund/grav-plugin-resize-images) by Fredrik Ekelund. That seems unmaintained however, and I needed some image functionality in my projects that I felt would be best bundled up in one plugin.
 
 ## Currently it does two things:
@@ -91,9 +93,10 @@ If you use the Admin Plugin, you can install the plugin directly by browsing the
 
 ## Many thanks go to
 @fredrikekelund – all credit for the actual code that does all the resizing goes to him.
-@olevik – copying and adapting his code from Image Srcset to add the `sizes` per CSS class was a lot easier than writing it all by myself, and also I wouldn’t have learned about the excellent [PHP Html Parser](https://github.com/paquettg/php-html-parser) otherwise.
+@olevik – copying and adapting his code from Image Srcset to add the `sizes` per CSS class was a lot easier than writing it all by myself.
 
 ## Plans for the future
-Being able to regenerate ALL images with a click would be incredibly nice, but I really don’t know when I might get around to that. Co-maintainers and -developers are welcome! If anyone needs support for formats other than jpg and png let me know, I could add that probably.
+DOM parsing is tricky and I intend to make the current solution more robust and future proof.
 
-Also a quick heads up: this plugin relies on some vendor code that appears to be unmaintained, I will replace that as this is currently limiting my output options.
+Co-maintainers and -developers are welcome! If anyone needs support for formats other than jpg and png let me know, I could add that probably.
+
